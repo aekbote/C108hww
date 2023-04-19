@@ -8,7 +8,7 @@ cap = cv2.VideoCapture(0)
 
 finger_tips =[8, 12, 16, 20]
 thumb_tip= 4
-finger_fold_status =[]
+
 
 while True:
     ret,img = cap.read()
@@ -24,6 +24,7 @@ while True:
             for id ,lm in enumerate(hand_landmark.landmark):
                 lm_list.append(lm)
 
+            finger_fold_status =[]
              #Code goes here
             for tip in finger_tips:
                 #getting the landmark tip position and drawing blue circle
@@ -41,12 +42,12 @@ while True:
                 #checking if the thumb is up
                 if lm_list[thumb_tip].y < lm_list[thumb_tip-1].y < lm_list[thumb_tip-2].y:
                     print("LIKE")
-                    cv2.putText(img, "LIKE", (20,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0, ), 3)
+                    cv2.putText(img, "LIKE", (20,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0 ), 3)
 
                 #checking if the thumb is down
                 if lm_list[thumb_tip].y > lm_list[thumb_tip-1].y > lm_list[thumb_tip-2].y:
                     print("DISLIKE")
-                    cv2.putText(img, "DISLIKE", (20,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0, ), 3)
+                    cv2.putText(img, "DISLIKE", (20,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255 ), 3)
 
 
 
@@ -57,4 +58,4 @@ while True:
     
 
     cv2.imshow("hand tracking", img)
-    cv2.waitKey(0)
+    cv2.waitKey(1)
